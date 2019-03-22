@@ -12,18 +12,39 @@ class MALCharacterService {
   }
 
   async getRandomCharacter() {
-    const entry = this.characterEntryGenerator.getEntry();
-    const response = await axios.get(
-      `https://api.jikan.moe/v3/character/${entry.getOrdinal()}/`
-    );
+    let iterationsRemaining = 5;
 
-    const characterDto = new JikaCharacterDto(response.data);
+    while (iterationsRemaining > 0) {
+      const entry = this.characterEntryGenerator.getEntry();
+      const response = await axios.get(
+        `https://api.jikan.moe/v3/character/${entry.getOrdinal()}/`
+      );
 
-    return new CharacterEntry(
-      characterDto.getImageUrl(),
-      characterDto.getName(),
-      characterDto.getBio()
-    );
+      // The entry we get back might not have the gender we want
+      const characterDto = new JikaCharacterDto(response.data);
+
+      // We give up in case something is wrong and we have to
+      if (this.isSuitableEntry(characterDto) || iterationsRemaining === 1) {
+        return new CharacterEntry(
+          characterDto.getImageUrl(),
+          characterDto.getName(),
+          characterDto.getBio()
+        );
+      }
+
+      iterationsRemaining--;
+    }
+  }
+
+  isSuitableEntry(characterDto) {
+    const bio = characterDto.getBio().toLowerCase();
+
+    // Do something dumb and just check for female pronouns
+    const PRONOUNS = ['she', 'her', 'hers'];
+
+    return PRONOUNS.some(pronoun => {
+      return bio.indexOf(pronoun) > -1;
+    });
   }
 }
 

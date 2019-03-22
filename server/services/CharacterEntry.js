@@ -5,13 +5,6 @@ class CharacterEntry {
     this.imageAsBase64String = imageAsBase64String;
     this.characterBio = characterBio;
     this.characterName = characterName;
-
-    // TODO: Do we need this validation at all?
-    // if (!BASE_64_VERIFY.test(imageAsBase64String)) {
-    //   throw new Error(
-    //     'The string provided for the image data has to be Base 64 encoded. You cannot use this string.'
-    //   );
-    // }
   }
 
   getCharacterName() {

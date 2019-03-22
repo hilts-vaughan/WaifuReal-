@@ -4,7 +4,8 @@
   "description": "A server for a Waifu guessing game -- it serves as a basic rest API for the game",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node index.js"
   },
   "author": "Vaughan Hilts",
   "license": "MIT",

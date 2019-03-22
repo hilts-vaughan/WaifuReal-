@@ -3,6 +3,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const logger = require('koa-logger');
 const app = new Koa();
+const cors = require('@koa/cors');
 const router = new Router();
 
 app.use(async (ctx, next) => {
@@ -15,6 +16,7 @@ app.use(async (ctx, next) => {
   }
 });
 
+app.use(cors());
 app.use(logger());
 app.use(router.routes());
 app.use(router.allowedMethods());

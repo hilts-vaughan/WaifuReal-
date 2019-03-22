@@ -21,8 +21,8 @@ class MALCharacterService {
 
     return new CharacterEntry(
       characterDto.getImageUrl(),
-      characterDto.getBio(),
-      characterDto.getName()
+      characterDto.getName(),
+      characterDto.getBio()
     );
   }
 }

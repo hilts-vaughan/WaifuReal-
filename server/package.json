@@ -9,6 +9,7 @@
   "author": "Vaughan Hilts",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "axios": "^0.18.0",
     "japanese-name-generator": "^0.2.0",
     "koa": "^2.7.0",

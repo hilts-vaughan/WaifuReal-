@@ -20,7 +20,7 @@ class CharacterEntryIdGenerator {
 
   _getOriginalSet() {
     const ORIGNAL_SET = [];
-    const MAX_ID = 10000;
+    const MAX_ID = 9000;
 
     for (let i = 0; i < MAX_ID; i++) {
       if (!this.restrictedEntrySet.has(i)) {

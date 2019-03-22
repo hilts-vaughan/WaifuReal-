@@ -19,12 +19,8 @@ class FakeWaifuService {
       `https://www.thiswaifudoesnotexist.net/snippet-${optionIndex}.txt`
     );
 
-    const characterImage = await axios.get(
-      `https://www.thiswaifudoesnotexist.net/example-${optionIndex}.jpg`
-    );
-
     return new CharacterEntry(
-      Buffer.from(characterImage.data).toString('base64'),
+      `https://www.thiswaifudoesnotexist.net/example-${optionIndex}.jpg`,
       this.nameGenerator.getName(),
       characterInfo.data
     );

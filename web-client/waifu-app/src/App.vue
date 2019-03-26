@@ -72,7 +72,7 @@ const showMessage = (app, message) => {
 };
 
 const getWaifus = app => {
-  return fetch('http://localhost:3000/random')
+  return fetch(`${process.env.VUE_APP_API_SERVER}/random`)
     .then(response => {
       return response.json();
     })

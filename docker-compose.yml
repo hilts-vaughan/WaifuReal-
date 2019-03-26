@@ -1,0 +1,27 @@
+version: '3'
+services:
+  proxy:
+    image: 'traefik'
+    ports:
+      - '80:80' # The HTTP port
+      - '443:443' # The HTTP port
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+      - ./traefik/traefik.toml:/traefik.toml
+  app-server:
+    ports:
+      - '3000:3000' # The API server is listening here
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.port=3000'
+      - 'traefik.frontend.rule=PathPrefixStrip:/api'
+    image: 'hilts-vaughan/waifu-app-server'
+
+  web-client:
+    ports:
+      - '8080:8080' # The API server is listening here
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.port=8080'
+      - 'traefik.frontend.rule=PathPrefixStrip:/'
+    image: 'hilts-vaughan/waifu-game-client'

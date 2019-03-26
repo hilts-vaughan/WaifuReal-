@@ -9,8 +9,15 @@ const FAKE_CHARACTER_SERVICE = DefaultServiceFactory.createDefaultFakeCharacterS
 
 module.exports = ({ router }) => {
   router.get('/random', async (ctx, next) => {
-    const realCharacter = await REAL_CHARACTER_SERVICE.getRandomCharacter();
-    const fakeCharacter = await FAKE_CHARACTER_SERVICE.getRandomCharacter();
+    const realCharacterResponse = REAL_CHARACTER_SERVICE.getRandomCharacter();
+    const fakeCharacterResponse = FAKE_CHARACTER_SERVICE.getRandomCharacter();
+
+    // This is to do them in parallel
+    const [realCharacter, fakeCharacter] = await Promise.all([
+      realCharacterResponse,
+      fakeCharacterResponse
+    ]);
+
     const match = new CharacterMatchup(realCharacter, fakeCharacter);
 
     // Send the match to the user
